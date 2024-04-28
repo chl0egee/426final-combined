@@ -1,6 +1,6 @@
 # V2Final426
 
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/uncapearso2/V2Final426) <- prob best way to access to prevent the weird copies
+This was our old front end repo READme ignore this 
 
 
 
