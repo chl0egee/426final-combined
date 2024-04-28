@@ -1,0 +1,171 @@
+#gamescreen {
+  width: 300px; /* could definitely be changed - would need to play with letterbox sizing and gap size*/
+  margin: auto; /* center letter boxes/guesses */
+  display: grid; /* easiest way to display letter boxes */
+  grid-template-columns: auto auto auto auto auto; /* automatically create 5 columns from the letter boxes */
+  gap: 10px;
+}
+
+.letterbox {
+  border-style: solid;
+  border-color: #3c4952; /* show outlines for boxes for each letter */
+  border-width: 1px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+}
+
+table{
+  width: 45%;
+  outline: solid;
+  margin: 0 auto;
+}
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: auto;
+}
+
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+.winPop {
+  position: relative;
+  display: flex;
+  /* display: inline-block; */
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.winPop .winPopText {
+  visibility: hidden;
+  /* width: 160px; */
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  /* position: absolute; */
+  z-index: 1;
+  /* bottom: 500px;
+  left: 500px; */
+  /* margin-left: auto; */
+  margin: auto;
+  top: 50%;
+  /* bottom: 500px; */
+}
+
+.winPop .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+#xbutton {
+  font-size: 10px;
+  position: relative;
+  left: 80%;
+  background-color: transparent;
+}
+.popupButton {
+  display: flex;
+  align-items: center;
+  padding: 0px 0px;
+  border-radius: 2px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+}
+
+.popupButton:hover {
+  opacity: 0.8;
+  font-weight: normal;
+}
+
+.popupButton:disabled {
+  opacity: 0.5;
+  cursor: auto;
+}
+
+#keyboard {
+  width: 75%; /* keyboard overhangs game area in wordle, could decrease this to make same width if we want */
+  margin: auto; /* center the keyboard */
+}
+
+#topline,
+#midline,
+#botline {
+  /* top, middle, and bottom keyboard rows */
+  width: fit-content;
+  height: fit-content;
+  margin: auto; /* center each line within the keyboard*/
+}
+
+
+p {
+  text-align: center;
+
+  justify-content: center;
+}
+
+.empty {
+  /* background-color: purple; */
+}
+
+.green {
+  background-color: green;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+#scoreboarddiv {
+  position: absolute; 
+  top: 50px;
+  right: 200px;
+  
+}
+
+.action-buttons {
+  text-align: center; 
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white; /* Set background color to white */
+}
+th, td {
+  border: 1px solid #ccc; /* Set border color to grey */
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: #f2f2f2;
+}
+
+.entire-page {
+  padding-top: 85px;
+}

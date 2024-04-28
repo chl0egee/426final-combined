@@ -1,0 +1,183 @@
+<head>
+  <title>Wordle</title>
+  <title>Kmpdle</title>
+  <!-- <script type="module" src="./WordleView.js"></script> -->
+  <!-- <link rel="stylesheet" type="text/css" href="Wordle.css" /> -->
+</head>
+<body>
+  <div class="entire-page">
+  <div id="main">
+    <div id="gamescreen" class="container">
+      <div *ngFor="let guess of guesses">
+        <!-- add a box for each letter-->
+        <div
+          [id]="guess.id"
+          [class]="guess.class"
+          [ngClass]="setClasses(guess.id)"
+        >
+          <p [id]="guess.pid" class="letterboxparagraph"></p>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div id="keyboard">
+      <!-- keyboard and all the keys broken up by top, middle, and bottom -->
+      <div id="topline">
+        <button id="Q" class="keyboard top" (click)="buttonClick('Q')">
+          Q
+        </button>
+        <button id="W" class="keyboard top" (click)="buttonClick('W')">
+          W
+        </button>
+        <button id="E" class="keyboard top" (click)="buttonClick('E')">
+          E
+        </button>
+        <button id="R" class="keyboard top" (click)="buttonClick('R')">
+          R
+        </button>
+        <button id="T" class="keyboard top" (click)="buttonClick('T')">
+          T
+        </button>
+        <button id="Y" class="keyboard top" (click)="buttonClick('Y')">
+          Y
+        </button>
+        <button id="U" class="keyboard top" (click)="buttonClick('U')">
+          U
+        </button>
+        <button id="I" class="keyboard top" (click)="buttonClick('I')">
+          I
+        </button>
+        <button id="O" class="keyboard top" (click)="buttonClick('O')">
+          O
+        </button>
+        <button id="P" class="keyboard top" (click)="buttonClick('P')">
+          P
+        </button>
+      </div>
+      <div id="midline">
+        <button id="A" class="keyboard middle" (click)="buttonClick('A')">
+          A
+        </button>
+        <button id="S" class="keyboard middle" (click)="buttonClick('S')">
+          S
+        </button>
+        <button id="D" class="keyboard middle" (click)="buttonClick('D')">
+          D
+        </button>
+        <button id="F" class="keyboard middle" (click)="buttonClick('F')">
+          F
+        </button>
+        <button id="G" class="keyboard middle" (click)="buttonClick('G')">
+          G
+        </button>
+        <button id="H" class="keyboard middle" (click)="buttonClick('H')">
+          H
+        </button>
+        <button id="J" class="keyboard middle" (click)="buttonClick('J')">
+          J
+        </button>
+        <button id="K" class="keyboard middle" (click)="buttonClick('K')">
+          K
+        </button>
+        <button id="L" class="keyboard middle" (click)="buttonClick('L')">
+          L
+        </button>
+      </div>
+      <div id="botline">
+        <button id="Enter" class="keyboard bottom" (click)="enter()">
+          Enter
+        </button>
+        <button id="Z" class="keyboard bottom" (click)="buttonClick('Z')">
+          Z
+        </button>
+        <button id="X" class="keyboard bottom" (click)="buttonClick('X')">
+          X
+        </button>
+        <button id="C" class="keyboard bottom" (click)="buttonClick('C')">
+          C
+        </button>
+        <button id="V" class="keyboard bottom" (click)="buttonClick('V')">
+          V
+        </button>
+        <button id="B" class="keyboard bottom" (click)="buttonClick('B')">
+          B
+        </button>
+        <button id="N" class="keyboard bottom" (click)="buttonClick('N')">
+          N
+        </button>
+        <button id="M" class="keyboard bottom" (click)="buttonClick('M')">
+          M
+        </button>
+        <button id="Backspace" class="keyboard bottom" (click)="backspace()">
+          ←
+        </button>
+      </div>
+    </div>
+    <div class="action-buttons popup">
+      <button (click)="getHint()">Get Hint</button>
+      <span class="popuptext" id="hintPopup">POPUP! HINT!</span>
+
+    <button (click)="reset()">Reset</button>
+    </div>
+    <div class="winPop">
+      <span class="winPopText" id="winPopup">
+        <button class="popupButton" id="xbutton" (click)="close()">X</button>
+        <br />
+        WINNER!
+        <br />
+       
+      </span>
+    </div>
+    <div class="messages">
+      <!-- Add messages here-->
+
+      <!-- Congrats, you solved the wordle in __ tries!-->
+      <!-- You failed to solve the wordle. Better luck next time!-->
+
+      <!-- You have __ of 3 hints Remaining!-->
+      <p></p>
+    </div>
+  </div>
+  <div id = "scoreboarddiv">
+    <p>Scoreboard</p>
+    <table>
+      <thead>
+        <tr>
+          <th># of Guesses</th>
+          <th>Frequency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows for numbers 1 to 6 -->
+        <tr>
+          <td>1</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td></td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+    
+  </div>
+</div>
+</body>
