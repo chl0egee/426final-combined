@@ -20,6 +20,7 @@ export class WordleComponent {
   goalword = 'HEELS'; //initial goalword - will have to be connected with backend dictionary functionality
   currentguess = 1;
   hint_count = 3;
+  hint = '';
   acceptinput = false; 
 
   constructor (private http: HttpClient) 
@@ -80,18 +81,21 @@ export class WordleComponent {
       }
     }
     this.getGoalWord();
+    console.log(this.goalword);
   }
 
   getHint() {
     let popup = document.getElementById('hintPopup');
 
     if (this.hint_count > 0) {
-    this.http.get<string>('/hint').subscribe((hint: string) => {
+    this.http.get<{hint: string}>('http://localhost:3000/hint').subscribe((response: { hint: string }) => {
       this.hint_count--; 
+      this.hint = response.hint; 
+      console.log(response.hint);
   
       // Put what is returned into the hint div class
       if (popup) {
-        popup.innerHTML = hint; 
+        popup.innerHTML = response.hint; 
         popup.classList.toggle('show');
       }
     });
@@ -105,8 +109,8 @@ export class WordleComponent {
   }
 
   getGoalWord() {
-    this.http.get<string>('/word').subscribe((word:string) => {
-      this.goalword = word; 
+    this.http.get<{word: string}>('http://localhost:3000/word').subscribe((response: {word: string}) => {
+      this.goalword = response.word; 
     });
     // get word with API call
     // set this.goalword to that call
