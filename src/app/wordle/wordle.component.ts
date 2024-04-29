@@ -17,7 +17,7 @@ Could also add keyboard functionality and allow the user to enter alpha input + 
 */
 export class WordleComponent {
   guesses = [...guesses];
-  goalword = 'TAKEN'; //initial goalword - will have to be connected with backend dictionary functionality
+  goalword = 'HEELS'; //initial goalword - will have to be connected with backend dictionary functionality
   currentguess = 1;
   hint_count = 3;
   acceptinput = false; 
@@ -79,6 +79,7 @@ export class WordleComponent {
         }
       }
     }
+    this.getGoalWord();
   }
 
   getHint() {
