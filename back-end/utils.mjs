@@ -4,7 +4,21 @@ import OpenAI from "openai";
 
 export class Utils {
   static #currWord = "";
-  static #currContext = [];
+  static #currContext = [
+    {
+      role: "system",
+      content:
+        "You generate hints for a Wordle game. " +
+        "You generate a short and unique hint each time based on the word given. " +
+        "Each hint will contain information that was not already shown in previous hints.",
+    },
+    {
+      role: "user",
+      content: `Generate a short hint for a Wordle game where the solution is '${
+        Utils.#currWord
+      }' and only return the hint itself. Make sure to not include information already shown in previous hints.`,
+    },
+  ];
 
   static async newWord() {
     try {
