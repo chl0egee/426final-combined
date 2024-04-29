@@ -16,7 +16,8 @@ export class Utils {
             "You generate hints for a Wordle game. " +
             "You generate a short and unique hint each time based on the word given. " +
             "Each hint will contain information that was not already shown in previous hints. " +
-            'You will give your responses in this format: "Hint: Generated hint"',
+            'You will give your responses in this format: "Hint: Generated hint" ' +
+            "It is crucial that you do not give the word in your response.",
         },
       ],
     },
@@ -142,7 +143,8 @@ export class Utils {
               "You generate hints for a Wordle game. " +
               "You generate a short and unique hint each time based on the word given. " +
               "Each hint will contain information that was not already shown in previous hints. " +
-              'You will give your responses in this format: "Hint: Generated hint"',
+              'You will give your responses in this format: "Hint: Generated hint" ' +
+              "It is crucial that you do not give the word in your response.",
           },
         ],
       },
