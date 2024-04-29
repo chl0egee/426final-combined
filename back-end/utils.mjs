@@ -1,22 +1,32 @@
 import { db } from "./db.mjs";
 import { apiKey } from "./config.mjs";
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 export class Utils {
   static #currWord = "";
   static #currContext = [
     {
-      role: "system",
-      content:
-        "You generate hints for a Wordle game. " +
-        "You generate a short and unique hint each time based on the word given. " +
-        "Each hint will contain information that was not already shown in previous hints.",
+      role: "user",
+      parts: [
+        {
+          text:
+            "You generate hints for a Wordle game. " +
+            "You generate a short and unique hint each time based on the word given. " +
+            "Each hint will contain information that was not already shown in previous hints. " +
+            'You will give your responses in this format: "Hint: Generated hint"',
+        },
+      ],
     },
     {
-      role: "user",
-      content: `Generate a short hint for a Wordle game where the solution is '${
-        Utils.#currWord
-      }' and only return the hint itself. Make sure to not include information already shown in previous hints.`,
+      role: "model",
+      parts: [
+        {
+          text: 'Got it, please provide the word and I will respond with the format "Hint: Generated hint".',
+        },
+      ],
     },
   ];
 
@@ -31,25 +41,13 @@ export class Utils {
   }
 
   static async newHint() {
-    const openai = new OpenAI({ apiKey: apiKey });
-
     try {
-      if (Utils.#currContext.length === 0) {
-        throw new Error(
-          "Error (utils.mjs/newHint): Current context array is not initialized"
-        );
-      }
+      let chat = model.startChat({ history: Utils.#currContext });
 
-      let result = await openai.chat.completions.create({
-        messages: Utils.#currContext,
-        model: "gpt-3.5-turbo",
-      });
-
-      let reply = result.choices[0];
-
-      Utils.#addContext(reply);
-
-      return reply;
+      let result = await chat.sendMessage(Utils.#currWord);
+      let response = await result.response;
+      Utils.#addContext(response.text());
+      return response.text();
     } catch (e) {
       console.error(e);
       return null;
@@ -137,25 +135,46 @@ export class Utils {
   static #newContext() {
     Utils.#currContext = [
       {
-        role: "system",
-        content:
-          "You generate hints for a Wordle game. " +
-          "You generate a short and unique hint each time based on the word given. " +
-          "Each hint will contain information that was not already shown in previous hints.",
+        role: "user",
+        parts: [
+          {
+            text:
+              "You generate hints for a Wordle game. " +
+              "You generate a short and unique hint each time based on the word given. " +
+              "Each hint will contain information that was not already shown in previous hints. " +
+              'You will give your responses in this format: "Hint: Generated hint"',
+          },
+        ],
       },
       {
-        role: "user",
-        content: `Generate a short hint for a Wordle game where the solution is '${
-          Utils.#currWord
-        }' and only return the hint itself. Make sure to not include information already shown in previous hints.`,
+        role: "model",
+        parts: [
+          {
+            text: 'Got it, please provide the word and I will respond with the format "Hint: Generated hint".',
+          },
+        ],
       },
     ];
   }
 
   static #addContext(reply) {
-    Utils.#addContext.push({
-      role: "assistant",
-      content: reply,
-    });
+    Utils.#currContext.push(
+      {
+        role: "user",
+        parts: [
+          {
+            text: Utils.#currWord,
+          },
+        ],
+      },
+      {
+        role: "model",
+        parts: [
+          {
+            text: reply,
+          },
+        ],
+      }
+    );
   }
 }
