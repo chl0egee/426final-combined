@@ -89,7 +89,9 @@ export class WordleComponent {
   }
 
   getGoalWord() {
-    //this.goalword = this.http.get<string>('/word');
+    this.http.get<string>('/word').subscribe((word:string) => {
+      this.goalword = word; 
+    });
     // get word with API call
     // set this.goalword to that call
 
@@ -218,7 +220,6 @@ export class WordleComponent {
       let popup = document.getElementById('winPopup');
       popup?.classList.toggle('show');
       this.http.put<number>('score', this.currentguess);
-      
     } else if (this.currentguess >= 6) {
       // print you have failed wordle message
       // You failed to solve the wordle. Better luck next time!
