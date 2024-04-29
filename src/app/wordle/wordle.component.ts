@@ -20,6 +20,7 @@ export class WordleComponent {
   goalword = 'TAKEN'; //initial goalword - will have to be connected with backend dictionary functionality
   currentguess = 1;
   hint_count = 3;
+  acceptinput = false; 
 
   constructor (private http: HttpClient) 
   {}
@@ -49,21 +50,35 @@ export class WordleComponent {
   }
 
   reset() {
-    this.currentguess = 0;
-    for (let i = 1; i <= 6; i++) { // Assuming you have 6 guesses
-      for (let j = 1; j <= 5; j++) { // Assuming you have 5 letters per guess
-        let tempid = 'g' + i + 'l' + j; // Constructing the ID of each letter box
-        let letterElement = document.getElementById(tempid); // Getting the letter box element
-        if (letterElement) {
-          letterElement.textContent  = '';
-          letterElement.classList.remove('green', 'yellow'); // Remove additional classes
+    this.currentguess = 1;
+    this.acceptinput = true;
+    //remove winner or loser popups if showing
+
+    for (let g = 1; g < 7; g++) {
+      //loop through guesses
+      for (let i = 1; i < 6; i++) {
+        //loop through letters
+        let tempid = 'g' + g + 'l' + i;
+        let temppid = 'g' + g + 'l' + i + 'p';
+        let child = document.getElementById(temppid)?.childNodes;
+        if (child != undefined) {
+          document.getElementById(temppid)?.removeChild(child[0]); //max 1 child, clear the box
+        }
+        let div = document.getElementById(tempid);
+        if (div?.classList.length != undefined && div?.classList.length > 1) {
+          //has a color
+          div?.classList.toggle(div?.classList[div?.classList.length - 1]); //remove color class
+        }
+        let winpopup = document.getElementById('winPopup');
+        if (winpopup?.classList.contains('show')) {
+          winpopup?.classList.toggle('show');
+        }
+        let failpopup = document.getElementById('failPopup');
+        if (failpopup?.classList.contains('show')) {
+          failpopup?.classList.toggle('show');
         }
       }
     }
-
-    //correctly resets the gameboard but then you cannot type, i think this has
-    // to do with setClasses or something, ash you may be better at debugging/doing 
-    // this function than me
   }
 
   getHint() {
