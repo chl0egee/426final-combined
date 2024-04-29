@@ -63,7 +63,10 @@ export class WordleComponent {
         let temppid = 'g' + g + 'l' + i + 'p';
         let child = document.getElementById(temppid)?.childNodes;
         if (child != undefined) {
-          document.getElementById(temppid)?.removeChild(child[0]); //max 1 child, clear the box
+          const element = document.getElementById(temppid);
+          if (element) {
+            element.innerText = "";
+          } //max 1 child, clear the box
         }
         let div = document.getElementById(tempid);
         if (div?.classList.length != undefined && div?.classList.length > 1) {
