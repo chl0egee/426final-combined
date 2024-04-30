@@ -99,14 +99,14 @@ export class WordleComponent {
       // Put what is returned into the hint div class
       if (popup) {
         popup.innerHTML = response.hint; 
-        popup.classList.toggle('show');
+        popup.classList.add('show');
       }
     });
   }
   else {
     if (popup) {
       popup.innerHTML = 'You have no more hints remaining.'; 
-      popup.classList.toggle('show');
+      popup.classList.add('show');
     }
   }
   }
